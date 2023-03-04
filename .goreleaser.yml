@@ -21,10 +21,10 @@ builds:
       # - 386
     ldflags:
       ## auto inject commit and version at build time
-      - -X github.com/vdbulcke/json-patcher/cmd.GitCommit={{ .ShortCommit }} 
-      - -X github.com/vdbulcke/json-patcher/cmd.Version={{ .Version }}  
-      - -X github.com/vdbulcke/json-patcher/cmd.Date={{ .CommitDate }}
-      - -X github.com/vdbulcke/json-patcher/cmd.BuiltBy=goreleaser
+      - -X github.com/vdbulcke/json-patcher/src/cmd.GitCommit={{ .ShortCommit }} 
+      - -X github.com/vdbulcke/json-patcher/src/cmd.Version=v{{ .Version }}  
+      - -X github.com/vdbulcke/json-patcher/src/cmd.Date={{ .CommitDate }}
+      - -X github.com/vdbulcke/json-patcher/src/cmd.BuiltBy=goreleaser
 archives:
   - 
     ## Deprecated "replacements"
