@@ -4,7 +4,7 @@
 
 `json-patcher` is a CLI tools to applying a list of JSON patch (rfc6902) from a declarative config file. Think of it as [kustomize patch](https://kubectl.docs.kubernetes.io/references/kustomize/builtins/#_patchesjson6902_) but for arbitrary JSON files. 
 
-At it's core it is using the ["github.com/evanphx/json-patch/v5"]("github.com/evanphx/json-patch/v5") library.
+At it's core it is using the ["github.com/evanphx/json-patch/v5"](https://github.com/evanphx/json-patch) library.
 
 ## Install 
 
