@@ -1,0 +1,43 @@
+---
+## List of Patches
+
+## Patch Object Properties
+## source: type string
+#### required
+#### [NEW|STDIN| path to a json file]
+#### 
+#### - NEW   => same as '{}' as source file
+#### - STDIN => read json from STDIN
+#### - path to a json file 
+####
+## destination: type string
+#### required
+#### [STDOUT| path to a json file]
+#### 
+#### - STDOUT => output patched json to STDOUT
+#### - path to a json file => write (or override) patched JSON to a file (*)
+#### (*) could be the same as 'source'
+####
+## json_patch: type string
+#### required
+#### A list JSON Patches (rfc6902) as inline YAML or JSON
+#### to apply to the source and write as ouputs
+#### reference: 
+####  - https://jsonpatch.com/
+####  - https://github.com/evanphx/json-patch
+
+patches:
+
+## Example json format 
+- source: NEW
+  destination: generated.json
+  json_patch: '[{"op":"add", "path": "/hello", "value":"world"}]'
+
+## Example yaml format
+- source: example/foo.json
+  destination: STDOUT
+  json_patch: |-
+    - op: replace
+      path: "/foo"
+      value: "baz"
+  

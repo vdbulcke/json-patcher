@@ -1,0 +1,11 @@
+
+
+
+## goreleaser
+dist/
+.envrc
+
+## Outputs
+output/*
+test.json
+generated.json
