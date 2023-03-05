@@ -25,12 +25,37 @@
 #### reference: 
 ####  - https://jsonpatch.com/
 ####  - https://github.com/evanphx/json-patch
+####
+## source_not_exist: type string
+#### optional
+#### ['fail'|'continue']
+#### 
+#### - fail     => stop processing of all other patches
+####               and return with error
+#### - continue => skip current patch and continue processing
+####               other patches
+####  Default: 'fail'
+####
+## tags: type []string
+#### optional
+#### list of tags for patch, for --skip-tags options.
+#### If at least one tag from --skip-tags input is in the 
+#### 'tags' list of a patch, the patch is skipped and processing
+#### of remaining patches continue.
+#### 
+#### Example: --skip-tags 'tag1,tag2,tag3'
+####   tags:
+####   - tag2
+#### 
+####  Default: []
 
 patches:
 
 ## Example json format 
 - source: NEW
   destination: generated.json
+  tags:
+    - generated 
   json_patch: '[{"op":"add", "path": "/hello", "value":"world"}]'
 
 ## Example yaml format
@@ -38,6 +63,16 @@ patches:
   destination: STDOUT
   json_patch: |-
     - op: replace
+      path: "/foo"
+      value: "baz"
+
+
+## Example yaml format
+- source: nonExistingFile.json
+  source_not_exist: continue
+  destination: STDOUT
+  json_patch: |-
+    - op: add
       path: "/foo"
       value: "baz"
   

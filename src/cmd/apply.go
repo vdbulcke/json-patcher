@@ -11,12 +11,14 @@ import (
 )
 
 var patchFile string
+var skipTags string
 
 func init() {
 	// bind to root command
 	rootCmd.AddCommand(apply)
 	// add flags to sub command
 	apply.Flags().StringVarP(&patchFile, "patch-file", "p", "", "file containing a list of patches")
+	apply.Flags().StringVarP(&skipTags, "skip-tags", "s", "", "comma separated list of tags to skip")
 
 	// required flags
 	//nolint
@@ -42,7 +44,7 @@ func applyCmd(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
-	err = patcher.Apply(c, Debug)
+	err = patcher.Apply(c, skipTags, Debug)
 	if err != nil {
 		logger.Error("Error applying patches", zap.Error(err))
 		os.Exit(1)

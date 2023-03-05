@@ -5,6 +5,7 @@ go 1.20
 require github.com/spf13/cobra v1.6.1
 
 require (
+	github.com/creasty/defaults v1.6.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/leodido/go-urn v1.2.2 // indirect

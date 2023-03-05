@@ -6,6 +6,7 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/creasty/defaults"
 	jsonpatch "github.com/evanphx/json-patch/v5"
 	"github.com/go-playground/validator"
 	"gopkg.in/yaml.v2"
@@ -16,10 +17,13 @@ var (
 	STDIN  = "STDIN"
 	STDOUT = "STDOUT"
 	NEW    = "NEW"
+
+	FAIL     = "fail"
+	CONTINUE = "continue"
 )
 
 type Config struct {
-	Patches []*Patch `yaml:"patches" validate:"required"`
+	Patches []*Patch `yaml:"patches" validate:"required,dive"`
 }
 
 type Patch struct {
@@ -27,7 +31,27 @@ type Patch struct {
 	Destination string `yaml:"destination" validate:"required"`
 	JSONPatch   string `yaml:"json_patch" validate:"required"`
 
-	DecodedPatch jsonpatch.Patch
+	SourceNotExists string   `yaml:"source_not_exist" default:"fail" validate:"required,oneof=fail continue"`
+	Tags            []string `yaml:"tags" `
+	DecodedPatch    jsonpatch.Patch
+}
+
+func (p *Patch) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	// source: https://stackoverflow.com/questions/56049589/what-is-the-way-to-set-default-values-on-keys-in-lists-when-unmarshalling-yaml-i
+	// set default
+	err := defaults.Set(p)
+	if err != nil {
+		return err
+	}
+
+	type plain Patch
+
+	if err := unmarshal((*plain)(p)); err != nil {
+		return err
+	}
+
+	return nil
+
 }
 
 // ValidateConfig validate config
@@ -72,6 +96,7 @@ func ParseConfig(configFile string) (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	// validate config
 	if !ValidateConfig(&config) {
 		return nil, fmt.Errorf("validation Error %s", configFile)
