@@ -77,7 +77,7 @@ json-patcher apply -p patch.yaml
 See the result
 ```bash
 $ cat generated.json 
-{"foo":"baz","hello":"world"
+{"foo":"baz","hello":"world"}
 ```
 
 See [./example/patch.yaml](./example/patch.yaml) for details information about configuration of patches.
