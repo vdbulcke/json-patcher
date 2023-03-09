@@ -1,1 +1,4 @@
-{"foo":"bar"}
+{
+    "foo": "bar", 
+    "html-escaping": "$VAR > 0 && $VAR < 100"
+}

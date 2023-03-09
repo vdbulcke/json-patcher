@@ -12,6 +12,7 @@ import (
 
 var patchFile string
 var skipTags string
+var allowUnescapedHTML bool
 
 func init() {
 	// bind to root command
@@ -19,6 +20,7 @@ func init() {
 	// add flags to sub command
 	apply.Flags().StringVarP(&patchFile, "patch-file", "p", "", "file containing a list of patches")
 	apply.Flags().StringVarP(&skipTags, "skip-tags", "s", "", "comma separated list of tags to skip")
+	apply.Flags().BoolVarP(&allowUnescapedHTML, "allow-unescaped-html", "", false, "allow unescaped HTML in JSON output")
 
 	// required flags
 	//nolint
@@ -44,7 +46,7 @@ func applyCmd(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
-	err = patcher.Apply(c, skipTags, Debug)
+	err = patcher.Apply(c, patcher.NewOptions(skipTags, allowUnescapedHTML, Debug))
 	if err != nil {
 		logger.Error("Error applying patches", zap.Error(err))
 		os.Exit(1)

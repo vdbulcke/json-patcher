@@ -1,6 +1,7 @@
 package patcher
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"io"
@@ -24,7 +25,7 @@ func sourceExists(source string) bool {
 }
 
 // readSource read source file or STDIN or return '{}' if NEW as bytes
-func readSource(source string) ([]byte, error) {
+func readSource(source string, opts *Options) ([]byte, error) {
 
 	if source == config.STDIN {
 		return io.ReadAll(os.Stdin)
@@ -39,7 +40,15 @@ func readSource(source string) ([]byte, error) {
 }
 
 // writeDestination write bytes to file or STDOUT
-func writeDestination(destination string, data []byte) error {
+func writeDestination(destination string, data []byte, opts *Options) error {
+
+	// revert HTML escape
+	if opts.allowUnescapedHTML {
+		data = bytes.Replace(data, []byte("\\u0026"), []byte("&"), -1)
+		data = bytes.Replace(data, []byte("\\u003c"), []byte("<"), -1)
+		data = bytes.Replace(data, []byte("\\u003e"), []byte(">"), -1)
+	}
+
 	var writer *os.File
 	if destination == config.STDOUT {
 		writer = os.Stdout
