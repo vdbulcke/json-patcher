@@ -108,7 +108,7 @@ func ParseConfig(configFile string) (*Config, error) {
 		trimedPatch := strings.TrimSpace(p.JSONPatch)
 		p.DecodedPatch, err = jsonPatchFromString(trimedPatch)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("Invalid 'json_patch' for source %s. Error: %s", p.Source, err.Error())
 		}
 
 	}
