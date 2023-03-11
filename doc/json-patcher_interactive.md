@@ -1,16 +1,16 @@
-## json-patcher apply
+## json-patcher interactive
 
-apply  list of patches
+interactive  list of patches
 
 ```
-json-patcher apply [flags]
+json-patcher interactive [flags]
 ```
 
 ### Options
 
 ```
       --allow-unescaped-html   allow unescaped HTML in JSON output
-  -h, --help                   help for apply
+  -h, --help                   help for interactive
   -p, --patch-file string      file containing a list of patches
   -s, --skip-tags string       comma separated list of tags to skip
 ```
