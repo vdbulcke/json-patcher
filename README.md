@@ -91,3 +91,58 @@ See [json-patcher](./doc/json-patcher.md) for CLI usage.
 
 See [json-patcher completion](./doc/json-patcher_completion.md).
 
+
+## Interactive Terminal UI 
+
+`json-patcher interactive` leverages [charmbracelet/bubbletea](https://github.com/charmbracelet/bubbletea) to display an interactive applications within your terminal. 
+
+
+Start the TUI with:
+```bash
+json-patcher interactive -p patch.yaml
+```
+> NOTE: `json-patcher interactive` supports the same arguments as `json-patcher apply` subcommand
+
+<img  src=./example/demo.gif width="700"/>
+
+> The above example was generated with VHS ([view source](./example/demo.tape)).
+
+
+### List View
+
+The list view will display the list of patches (filtered by `source_not_exist` and `--skip-tags`).
+
+Key Binding
+
+| Key | Action |
+|  -- | -- | 
+| Arrow UP | Move up the list |
+| Arrow DOWN | Move Down the list |
+| Arrow LEFT | Move left the pager |
+| Arrow RIGHT | Move right the pager |
+| ENTER | View Current Patch |
+| x | Delete patch from list |
+| / | Trigger fuzzy filter  |
+| ? | Help | 
+| q | Quit | 
+| CTRL+C | Quit |
+
+### Current Patch View
+
+Key Binding
+
+| Key | Action |
+|  -- | -- | 
+| Arrow UP | Move up the pager |
+| Arrow DOWN | Move Down the pager |
+| p | Preview Current Patch |
+| t | Toggle `--allow-unescaped-html` flag |
+| a | Apply current Patch **(*)**  |
+| q | Back |
+| ESC | Back |
+| CTRL+C | Quit |
+
+> **(*)** If teh current patch's Destination is STDOUT "applying" the patch is the same as "previewing" the patch
+
+> NOTE: same Key binding for "Current Patch Info", "Preview Patch", and "Apply Patch Result" view.
+
