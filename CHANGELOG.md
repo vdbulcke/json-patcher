@@ -2,6 +2,15 @@
 ## [Unreleased]
 
 
+<a name="v0.4.0"></a>
+## [v0.4.0] - 2023-03-11
+### Bug Fixes
+- 6afa26e - refactor lib for TUI integration ([#5](https://github.com/vdbulcke/json-patcher/issues/5))
+
+### Features
+- e625c22 - add terminal UI for previewing patches ([#5](https://github.com/vdbulcke/json-patcher/issues/5))
+
+
 <a name="v0.3.0"></a>
 ## [v0.3.0] - 2023-03-09
 ### Bug Fixes
@@ -29,7 +38,8 @@
 - 8ecef14 - apply list of json rfc6902 patches
 
 
-[Unreleased]: https://github.com/vdbulcke/json-patcher/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/vdbulcke/json-patcher/compare/v0.4.0...HEAD
+[v0.4.0]: https://github.com/vdbulcke/json-patcher/compare/v0.3.0...v0.4.0
 [v0.3.0]: https://github.com/vdbulcke/json-patcher/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/vdbulcke/json-patcher/compare/v0.1.1...v0.2.0
 [v0.1.1]: https://github.com/vdbulcke/json-patcher/compare/v0.1.0...v0.1.1
