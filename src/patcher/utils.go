@@ -1,7 +1,6 @@
 package patcher
 
 import (
-	"bytes"
 	"errors"
 	"fmt"
 	"io"
@@ -40,14 +39,7 @@ func readSource(source string, opts *Options) ([]byte, error) {
 }
 
 // writeDestination write bytes to file or STDOUT
-func writeDestination(destination string, data []byte, opts *Options) error {
-
-	// revert HTML escape
-	if opts.allowUnescapedHTML {
-		data = bytes.Replace(data, []byte("\\u0026"), []byte("&"), -1)
-		data = bytes.Replace(data, []byte("\\u003c"), []byte("<"), -1)
-		data = bytes.Replace(data, []byte("\\u003e"), []byte(">"), -1)
-	}
+func WriteDestination(destination string, data []byte, opts *Options) error {
 
 	var writer *os.File
 	if destination == config.STDOUT {
@@ -83,10 +75,10 @@ func writeDestination(destination string, data []byte, opts *Options) error {
 	return nil
 }
 
-func skip(patch *config.Patch, skipTags string) (*SkipReason, error) {
+func Skip(patch *config.Patch, opts *Options) (*SkipReason, error) {
 
 	// handle skip tags
-	for _, t := range strings.Split(skipTags, ",") {
+	for _, t := range strings.Split(opts.SkipTags, ",") {
 
 		// for each skipTags if at least one
 		// is matching a patch tag then skip

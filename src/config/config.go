@@ -27,13 +27,13 @@ type Config struct {
 }
 
 type Patch struct {
-	Source      string `yaml:"source" validate:"required"`
-	Destination string `yaml:"destination" validate:"required"`
-	JSONPatch   string `yaml:"json_patch" validate:"required"`
+	Source      string `yaml:"source" json:"source" validate:"required"`
+	Destination string `yaml:"destination" json:"destination"  validate:"required"`
+	JSONPatch   string `yaml:"json_patch"  json:"json_patch" validate:"required"`
 
-	SourceNotExists string   `yaml:"source_not_exist" default:"fail" validate:"required,oneof=fail continue"`
-	Tags            []string `yaml:"tags" `
-	DecodedPatch    jsonpatch.Patch
+	SourceNotExists string          `yaml:"source_not_exist"  json:"source_not_exist"  default:"fail" validate:"required,oneof=fail continue"`
+	Tags            []string        `yaml:"tags" json:"tags" `
+	DecodedPatch    jsonpatch.Patch `yaml:"-"  json:"-" `
 }
 
 func (p *Patch) UnmarshalYAML(unmarshal func(interface{}) error) error {
